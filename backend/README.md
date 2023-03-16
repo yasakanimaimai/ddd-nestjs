@@ -10,8 +10,8 @@
 ### QueryServiceとRepositoryについて
 | 名前         | 役割               | 戻り値                         | 
 | ------------ | ------------------ | ------------------------------ | 
-| QueryService | データの取得       | DTO（app層で定義）             | 
-| Repository   | データの保存、更新 | エンティティ（domain層で定義） | 
+| QueryService | 表示にのみ使用するデータの取得       | DTO（app層で定義）             | 
+| Repository   | DBの更新、更新に関わるエンティティの取得 | エンティティ（domain層で定義） | 
 
 
 ## マイグレーション
