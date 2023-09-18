@@ -13,3 +13,98 @@ model SomeData {
   required Boolean
   number   Int     @db.SmallInt
 }
+
+model Team {
+  id       String    @id @default(uuid()) @map("id")
+  name     String?
+  teamPair TeamPair[]
+}
+
+model Pair {
+  id              String           @id @default(uuid()) @map("id")
+  name            String?
+  teamPair        TeamPair[]
+  pairParticipant PairParticipant[]
+}
+
+model Participant {
+  id                     String                    @id @default(uuid()) @map("id")
+  firstName              String?                   @map("first_name")
+  lastName               String?                   @map("last_name")
+  mailAddress            String?                   @map("mail_address")
+  enrollmentStatusId     String?                   @map("enrollment_status_id")
+  enrollmentStatus       EnrollmentStatus?         @relation(fields: [enrollmentStatusId], references: [id])
+  pairParticipant        PairParticipant[]
+  participantChalProgress ParticipantChallengeProgress[]
+}
+
+model Challenge {
+  id               String                 @id @default(uuid()) @map("id")
+  title            String?
+  content          String?
+  challengeGenre   ChallengeGenre[]
+  participantChalProgress ParticipantChallengeProgress[]
+}
+
+model Administrator {
+  id          String @id @default(uuid()) @map("id")
+  firstName   String? @map("first_name")
+  lastName    String? @map("last_name")
+  mailAddress String? @map("mail_address")
+}
+
+model TeamPair {
+  teamId String
+  pairId String
+  team   Team  @relation(fields: [teamId], references: [id])
+  pair   Pair  @relation(fields: [pairId], references: [id])
+
+  @@id([teamId, pairId])
+}
+
+model PairParticipant {
+  pairId       String
+  participantId String
+  pair         Pair        @relation(fields: [pairId], references: [id])
+  participant  Participant @relation(fields: [participantId], references: [id])
+
+  @@id([pairId, participantId])
+}
+
+model ParticipantChallengeProgress {
+  participantId    String
+  challengeId      String
+  progressStatusId String
+  participant      Participant     @relation(fields: [participantId], references: [id])
+  challenge        Challenge       @relation(fields: [challengeId], references: [id])
+  progressStatus   ProgressStatus  @relation(fields: [progressStatusId], references: [id])
+
+  @@id([participantId, challengeId, progressStatusId])
+}
+
+model ChallengeGenre {
+  challengeId String
+  genreId     String
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+  genre       Genre     @relation(fields: [genreId], references: [id])
+
+  @@id([challengeId, genreId])
+}
+
+model EnrollmentStatus {
+  id           String        @id @default(uuid()) @map("id")
+  label        String?
+  participants Participant[]
+}
+
+model ProgressStatus {
+  id       String                     @id @default(uuid()) @map("id")
+  label    String?
+  progress ParticipantChallengeProgress[]
+}
+
+model Genre {
+  id            String           @id @default(uuid()) @map("id")
+  label         String?
+  challengeGenre ChallengeGenre[]
+}
