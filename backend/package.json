@@ -23,6 +23,8 @@
     "migrate:dev:reset": "dotenv -e .local.env -- prisma migrate reset --preview-feature",
     "migrate:test": "dotenv -e .test.env -- prisma migrate reset --force --preview-feature",
     "migrate:prd": "prisma migrate deploy --preview-feature",
+    "prisma-studio": "dotenv -e .local.env -- prisma studio",
+    "sample:prisma": "npx dotenv -e .local.env -- ts-node prismaClientSample.ts",
     "test:unit": "dotenv -e .test.env -- jest",
     "test:integration": "yarn migrate:test && dotenv -e .test.env -- jest -c ./jest.integration.config.js --runInBand"
   },
