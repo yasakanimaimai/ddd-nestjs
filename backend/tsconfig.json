@@ -2,6 +2,8 @@
   "compilerOptions": {
     "strict": true,
     "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
     "module": "commonjs",
     "declaration": true,
     "removeComments": true,
@@ -13,6 +15,6 @@
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": true,
-    "paths": {"@testUtil/*": ["testUtil/*"]}
+    "paths": { "@testUtil/*": ["testUtil/*"] }
   }
 }
