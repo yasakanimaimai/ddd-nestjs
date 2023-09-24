@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { uuid } from 'uuidv4'
+import { createRandomIdString } from 'src/utils/random'
 
 console.log({ dbUrl: process.env })
 const prisma = new PrismaClient()
@@ -8,9 +8,10 @@ async function main() {
   // ... you will write your Prisma Client queries here
   const newAdministrator = await prisma.administrator.create({
     data: {
-      id: uuid(),
+      id: createRandomIdString(),
       firstName: 'first',
       lastName: 'last',
+      mailAddress: 'mail',
     },
   })
 
