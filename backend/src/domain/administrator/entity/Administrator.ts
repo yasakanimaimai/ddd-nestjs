@@ -3,7 +3,7 @@ import { AdministratorId } from '../valueObject/AdministratorId'
 import { LastName } from '../valueObject/LastName'
 import { FirstName } from '../valueObject/FirstName'
 import { MailAddress } from '../valueObject/MailAddress'
-import { AppException } from 'src/utils/AppException'
+import { DomainException } from 'src/utils/DomainException'
 
 interface AdministratorArgs {
   id: string
@@ -25,22 +25,22 @@ export class Administrator implements Entity {
 
     const administratorIdResult = AdministratorId.create(id)
     if (!administratorIdResult.isSuccess) {
-      throw new AppException(administratorIdResult.error?.message)
+      throw new DomainException(administratorIdResult.error?.message)
     }
 
     const firstNameResult = FirstName.create(firstName)
     if (!firstNameResult.isSuccess) {
-      throw new AppException(firstNameResult.error?.message)
+      throw new DomainException(firstNameResult.error?.message)
     }
 
     const lastNameResult = LastName.create(lastName)
     if (!lastNameResult.isSuccess) {
-      throw new AppException(lastNameResult.error?.message)
+      throw new DomainException(lastNameResult.error?.message)
     }
 
     const mailAddressResult = MailAddress.create(mailAddress)
     if (!mailAddressResult.isSuccess) {
-      throw new AppException(mailAddressResult.error?.message)
+      throw new DomainException(mailAddressResult.error?.message)
     }
 
     return new Administrator(
