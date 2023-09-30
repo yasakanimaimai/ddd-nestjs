@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client'
-import { AdministratorDtoOrNull } from 'src/usecase/AdministratorDto'
+import { AdministratorDtoOrNull } from 'src/usecase/administrator/AdministratorDto'
 import { IAdministratorQS } from 'src/usecase/query-service-interface/IAdministratorQS'
 import { InfraException } from 'src/utils/InfraException'
 import { Result } from 'src/utils/Result'
