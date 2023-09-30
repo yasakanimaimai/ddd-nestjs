@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger'
-import AdministratorResponse from '../AdministratorResponse'
+import AdministratorResponse from './AdministratorResponse'
 import { AdministratorDto } from 'src/usecase/AdministratorDto'
 
 export class GetAdministratorResponse {
