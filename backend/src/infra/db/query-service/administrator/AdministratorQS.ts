@@ -1,8 +1,6 @@
 import { PrismaClient } from '@prisma/client'
-import {
-  AdministratorDTO,
-  IAdministratorQS,
-} from 'src/usecase/query-service-interface/IAdministratorQS'
+import { AdministratorDtoOrNull } from 'src/usecase/AdministratorDto'
+import { IAdministratorQS } from 'src/usecase/query-service-interface/IAdministratorQS'
 import { InfraException } from 'src/utils/InfraException'
 import { Result } from 'src/utils/Result'
 
@@ -14,7 +12,7 @@ export class AdministratorQS implements IAdministratorQS {
 
   public async get(
     administratorId: string,
-  ): Promise<Result<AdministratorDTO | null>> {
+  ): Promise<Result<AdministratorDtoOrNull>> {
     console.log({ administratorId })
     return this.prismaClient.administrator
       .findUnique({
@@ -23,14 +21,15 @@ export class AdministratorQS implements IAdministratorQS {
         },
       })
       .then((administratorData) => {
-        return Result.ok<AdministratorDTO | null>(administratorData)
+        const administratorDto: AdministratorDtoOrNull = administratorData
+        return Result.ok<AdministratorDtoOrNull>(administratorDto)
       })
       .catch((error) => {
         let errorMessage = ''
         if (error instanceof Error) {
           errorMessage = error.message
         }
-        return Result.fail<AdministratorDTO | null>(
+        return Result.fail<AdministratorDtoOrNull>(
           new InfraException(
             `Get administrator query failed : ${errorMessage}`,
           ),
@@ -38,11 +37,11 @@ export class AdministratorQS implements IAdministratorQS {
       })
 
     // if (!administratorData) {
-    //   return Result.fail<AdministratorDTO>(
+    //   return Result.fail<AdministratorDto>(
     //     new InfraException('Get administrator query failed'),
     //   )
     // }
 
-    // return Result.ok<AdministratorDTO>(administratorData)
+    // return Result.ok<AdministratorDto>(administratorData)
   }
 }

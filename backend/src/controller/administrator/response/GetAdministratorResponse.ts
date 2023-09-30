@@ -1,12 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger'
-import { AdministratorDTO } from 'src/usecase/query-service-interface/IAdministratorQS'
 import AdministratorResponse from '../AdministratorResponse'
+import { AdministratorDto } from 'src/usecase/AdministratorDto'
 
 export class GetAdministratorResponse {
   @ApiProperty({ type: () => AdministratorResponse, required: false })
   administrator: AdministratorResponse | null
 
-  public constructor(params: AdministratorDTO | null) {
+  public constructor(params: AdministratorDto | null) {
     if (params === null) {
       this.administrator = null
       return
