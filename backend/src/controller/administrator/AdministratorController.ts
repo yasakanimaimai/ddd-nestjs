@@ -7,6 +7,7 @@ import { ApiResponse } from '@nestjs/swagger'
 import { GetAdministratorResponse } from './response/GetAdministratorResponse'
 import { AdministratorQS } from 'src/infra/db/query-service/administrator/AdministratorQS'
 import { GetAdministratorUseCase } from 'src/usecase/administrator/GetAdministratorUseCase'
+import { CreateAdministratorResponse } from './response/CreateAdministratorResponse'
 
 @Controller({
   path: '/administrator',
@@ -31,7 +32,7 @@ export class AdministratorController {
   @Post('/create')
   async createAdministrator(
     @Body() createAdministratorDto: CreateAdministratorRequest,
-  ): Promise<string> {
+  ): Promise<CreateAdministratorResponse> {
     const prisma = new PrismaClient()
     const repo = new AdministratorRepository(prisma)
     const usecase = new CreateAdministratorUseCase(repo)
@@ -40,6 +41,6 @@ export class AdministratorController {
       lastName: createAdministratorDto.lastName,
       mailAddress: createAdministratorDto.mailAddress,
     })
-    return result ? 'success' : 'failed'
+    return new CreateAdministratorResponse(result)
   }
 }
